@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd megaapi
+git checkout -b Feature3
+git branch --set-upstream-to=origin/Feature3

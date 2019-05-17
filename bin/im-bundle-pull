@@ -1,0 +1,22 @@
+#!/bin/bash
+
+branch_name=Feature4
+git fetch
+git checkout ${branch_name}
+
+possibly: git pull --set-upstream=origin/${branch_name}
+
+git checkout -B Feature3 e578a1ca60430270c49f7ca64fb051a6b6edfdb6
+
+branch_name=Feature4
+detatched_sha=e578a1ca60430270c49f7ca64fb051a6b6edfdb6
+
+git submodule init
+git submodule update
+
+git checkout
+git checkout -B im/Feature3 e578a1ca60430270c49f7ca64fb051a6b6edfdb6
+
+git checkout -B im/Feature3/Feature3 e578a1ca60430270c49f7ca64fb051a6b6edfdb6
+
+orphan=45f0a5b

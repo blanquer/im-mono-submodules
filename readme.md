@@ -5,7 +5,10 @@
 2. use existing git tools and such, not use custom helper script
 3. maintain as much of the 'monorepo' illusion as posisble
 
-post-checkout: magic hook so `git pull` works as expected
+post-pull:
+  update submodules....
+
+post-checkout: magic hook so `git pull` works as expected in the submodule
   goal: end up with submodule appearing on the branch at the point in time the developer made the commit. 
   could possibly do like this?:
     checkout git branch from manifest
