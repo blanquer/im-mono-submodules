@@ -1,0 +1,3 @@
+[submodule "megaapi"]
+	path = megaapi
+	url = https://github.com/blanquer/megaapi.git
