@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo updating manifest for... something?
+echo $0
+
+echo or is it....
+while read line; do
+  echo "$line"
+done <"${1:-/dev/stdin}"
