@@ -34,3 +34,5 @@ while read -r submodule branch_name; do
 done <manifest
 
 echo $new_manifest >manifest
+
+echo 'more here'

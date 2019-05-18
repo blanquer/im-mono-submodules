@@ -1,2 +1,1 @@
-megaapi filter=update-manifest
-pre-commit filter=update-manifest
+megaapi update-manifest

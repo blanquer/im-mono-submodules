@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo updating manifest for... something?
-echo $0
+echo $1
 
 echo or is it....
 while read line; do
