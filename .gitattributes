@@ -1,3 +1,4 @@
 megaapi filter=manifest
+megaapi/ filter=manifest
 pre-commit filter=manifest
 # megaapi/ filter=update-manifest
