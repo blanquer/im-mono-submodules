@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "CALLED $0 $1 $2" > /tmp/O
+echo `pwd` >> /tmp/O
+cat $1 >> /tmp/O
+cat $1
