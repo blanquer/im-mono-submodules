@@ -1,22 +1,22 @@
-#!/bin/bash
+# #!/bin/bash
 
-# read manifest
-# foreach $submodule $branch_name
+# # read manifest
+# # foreach $submodule $branch_name
 
-while read -r submodule branch_name; do
-  cd $submodule
+# while read -r submodule branch_name; do
+#   cd $submodule
 
-  head=$(git rev-parse HEAD)
-  branch=$(git rev-parse --quiet --verify "${branch_name}")
+#   head=$(git rev-parse HEAD)
+#   branch=$(git rev-parse --quiet --verify "${branch_name}")
 
-  if [ -z "$branch" ]; then
-    git checkout -b "$branch_name"
-    git branch --set-upstream-to=origin/${branch_name}
-  elif [ "$head" == "$branch" ]; then
-    git checkout "$branch_name"
-  else
-    echo "Refusing to update HEAD to ${branch_name}."
-  fi
+#   if [ -z "$branch" ]; then
+#     git checkout -b "$branch_name"
+#     git branch --set-upstream-to=origin/${branch_name}
+#   elif [ "$head" == "$branch" ]; then
+#     git checkout "$branch_name"
+#   else
+#     echo "Refusing to update HEAD to ${branch_name}."
+#   fi
 
-  cd ..
-done <manifest
+#   cd ..
+# done <manifest

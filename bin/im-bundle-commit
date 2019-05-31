@@ -1,0 +1,36 @@
+# #!/bin/bash
+
+# # new_manifest=""
+# newline=$'\n'
+# while read -r submodule branch_name; do
+#   cd $submodule
+
+#   echo "updating $submodule which manifest has at $branch_name"
+
+#   head_branch=$(git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3,4,5,6)
+
+#   if [ ! -z "$head_branch" ] && [ "$head_branch" != "$branch_name" ]; then
+#     echo "should update manifest for $submodule to $head_branch"
+#   else
+#     head_branch=$branch_name
+#     echo " > leave $submodule alone at $branch_name"
+#   fi
+
+#   new_manifest="${submodule} ${head_branch}$newline$new_manifest"
+
+#   # branch=$(git rev-parse --quiet --verify "${branch_name}")
+
+#   # echo head: $head, branch: $branch
+#   # if [ -z "$branch" ]; then
+#   #   git checkout -b "$branch_name"
+#   #   git branch --set-ugpstream-to=origin/${branch_name}
+#   # elif [ "$head" == "$branch" ]; then
+#   #   git checkout "$branch_name"
+#   # else
+#   #   echo "Refusing to update HEAD to ${branch_name}."
+#   # fi
+
+#   cd ..
+# done <manifest
+
+# echo $new_manifest >manifest

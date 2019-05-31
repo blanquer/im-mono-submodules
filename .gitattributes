@@ -1,0 +1,6 @@
+# megaapi filter=manifest
+# megaapi/ filter=manifest
+# pre-commit filter=manifest
+# megaapi/ filter=update-manifest
+# josep filter=josepfilter
+# manifest filter=manifest
