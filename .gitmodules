@@ -1,3 +1,6 @@
 [submodule "megaapi"]
 	path = megaapi
 	url = https://github.com/blanquer/megaapi.git
+[submodule "tinsy"]
+	path = tinsy
+	url = git@github.com:blanquer/tinsy.git
