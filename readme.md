@@ -1,3 +1,8 @@
+# Steps to install this thing
+* checkout the repo: `git clone git@github.com:blanquer/im-mono-submodules.git`
+* Tell your clone to look at included dir for hooks: `git config core.hooksPath bin/hooks`
+* profit
+
 #references
 
 https://medium.com/@porteneuve/mastering-git-submodules-34c65e940407
