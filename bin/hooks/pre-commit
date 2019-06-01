@@ -1,0 +1,62 @@
+#!/bin/bash
+# FROM GRIT SUITE
+
+# bug:im-mono-submodules (Feature4 *) $ git submodule status
+#  e578a1ca60430270c49f7ca64fb051a6b6edfdb6 megaapi (heads/Feature3)
+#  7be7fe99f7d86fe0bc22676621537d7be65799b3 tinsy (heads/master)
+
+# Utilities
+say() {
+  GRIT="\033[0;34mGrit:\033[0m"
+  printf "$GRIT $1\n"
+}
+warn() {
+  GRIT="\033[0;31mGrit:\033[0m"
+  printf "$GRIT $1\n"
+}
+
+
+# Build an array out of the current contents of the manifest
+currentmanifest=()
+while read -r submodule branch_name; do
+  currentmanifest+=("$submodule:$branch_name")
+done <'manifest'
+
+
+# Function to treat the manifest array as an associative hash
+# Can you this function to get the branch value of the manifest for a given submodule
+# result=`manifest_branch_for "megaapi"`
+manifest_branch_for() { 
+    local module=$1
+    for line in "${currentmanifest[@]}" ; do
+      if [[ $line =~ ^$module:(.*) ]]; then 
+        echo "${BASH_REMATCH[1]}"
+      fi
+    done
+}
+
+# Loop over the existing submodules and their branches and construct the new manifest
+submodules=$(git submodule status)
+# Array that will contain the newly generated manifest
+newmanifest=()
+manifest_changed="false"
+
+while read -r info
+do
+    IFS=' ' read -r sha modname heads <<< "$info"
+    branch=`echo $heads| tr -d \(\) | sed 's/heads\/\(.*\)/\1/'`
+    branch_in_manifest=`manifest_branch_for "$modname"`
+    if [ "$branch" != "$branch_in_manifest" ]; then
+      manifest_changed="true"
+      say "$modname should be at $branch but the manifest is at $branch_in_manifest"
+    fi
+    newmanifest+=("${modname} ${branch}")
+done <<< "$submodules"
+
+if [ "$manifest_changed" == "true" ]; then
+  say "Rebuilding and adding the new synced manifest file"
+fi
+# Regenerate the manifest file
+printf "%s\n" "${newmanifest[@]}" >'manifest'
+# And add it to the commit set
+git add 'manifest'

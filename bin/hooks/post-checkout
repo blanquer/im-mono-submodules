@@ -1,0 +1,58 @@
+#!/bin/bash
+
+prev=$0
+new_head=$1
+flag=$2
+
+# Utilities
+say() {
+  GRIT="\033[0;34mGrit:\033[0m"
+  printf "$GRIT $1\n"
+}
+warn() {
+  GRIT="\033[0;31mGrit:\033[0m"
+  printf "$GRIT $1\n"
+}
+
+if [ "$flag" == 0 ]; then
+  exit 0
+fi
+
+git submodule update --init
+# validate manifest existance and contents
+while read -r submodule branch_name; do
+  cd $submodule
+
+  say "updating $submodule to branch $branch_name"
+  head=$(git rev-parse HEAD)
+  branch=$(git rev-parse --quiet --verify "${branch_name}")
+
+  #echo head: $head, branch: $branch
+  if [ -z "$branch" ]; then
+    # If the branch doesn't exist locally, let's create it and check it out
+    git checkout -b "$branch_name" --track origin/${branch_name}
+    # git branch --set-ugpstream-to=origin/${branch_name}
+  elif [ "$head" == "$branch" ]; then
+    # If the branch exists, and points to the same sha , just check it out
+    git checkout -q "$branch_name"
+  elif [ $(git branch --contains ${head} --format "%(refname:short)" | grep -E "^${branch_name}$") ]; then
+    # NOTE: This may not be as helpful as it looks as it would backtrack the pointer...might wanna leave it out
+    # If the branch exists, it's not at the same tip, but the sha exists in it... 
+    # Then we just check it out (technically you could "loose" where the branch was pointing to...so not 100% save)  
+    git branch -f "${branch_name}" "${head}"
+    git checkout -q "$branch_name"
+  else
+    warn "Refusing to move your current HEAD to branch ${branch_name} in submodule ${submodule}. Please resolve it manually."
+    warn "   This probably happened because you might have been working on a branch in this repo that has "
+    warn "   used the ${branch_name} branch before, and where it has either seen new commits or older commits."
+    warn "   Rather than blindly resetting your ${branch_name} branch, it is best you resolve it on your own to make sure"
+    warn "   you don't loose where the branch was pointing before the checkout."
+    warn "   You can manually do:"
+    warn "   cd ${submodule}"
+    warn "   git branch -f ${branch_name} ${branch}"
+    warn "   git checkout ${branch_name}"
+    warn "   cd .."
+  fi
+
+  cd ..
+done <'manifest'
