@@ -1,18 +1,10 @@
 #!/bin/bash
 
+source ./grit-utils.sh
+
 prev=$0
 new_head=$1
 flag=$2
-
-# Utilities
-say() {
-  GRIT="\033[0;34mGrit:\033[0m"
-  printf "$GRIT $1\n"
-}
-warn() {
-  GRIT="\033[0;31mGrit:\033[0m"
-  printf "$GRIT $1\n"
-}
 
 if [ "$flag" == 0 ]; then
   exit 0
@@ -23,7 +15,7 @@ git submodule update --init
 while read -r submodule branch_name; do
   cd $submodule
 
-  say "updating $submodule to branch $branch_name"
+  info "updating $submodule to branch $branch_name"
   head=$(git rev-parse HEAD)
   branch=$(git rev-parse --quiet --verify "${branch_name}")
 

@@ -1,19 +1,12 @@
 #!/bin/bash
 # FROM GRIT SUITE
 
+source ./grit-utils.sh
+
 # bug:im-mono-submodules (Feature4 *) $ git submodule status
 #  e578a1ca60430270c49f7ca64fb051a6b6edfdb6 megaapi (heads/Feature3)
 #  7be7fe99f7d86fe0bc22676621537d7be65799b3 tinsy (heads/master)
 
-# Utilities
-say() {
-  GRIT="\033[0;34mGrit:\033[0m"
-  printf "$GRIT $1\n"
-}
-warn() {
-  GRIT="\033[0;31mGrit:\033[0m"
-  printf "$GRIT $1\n"
-}
 
 
 # Build an array out of the current contents of the manifest
@@ -48,13 +41,13 @@ do
     branch_in_manifest=`manifest_branch_for "$modname"`
     if [ "$branch" != "$branch_in_manifest" ]; then
       manifest_changed="true"
-      say "$modname should be at $branch but the manifest is at $branch_in_manifest"
+      info "$modname should be at $branch but the manifest is at $branch_in_manifest"
     fi
     newmanifest+=("${modname} ${branch}")
 done <<< "$submodules"
 
 if [ "$manifest_changed" == "true" ]; then
-  say "Rebuilding and adding the new synced manifest file"
+  info "Rebuilding and adding the new synced manifest file"
 fi
 # Regenerate the manifest file
 printf "%s\n" "${newmanifest[@]}" >'manifest'

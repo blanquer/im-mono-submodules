@@ -1,6 +1,8 @@
 #!/bin/sh
 # FROM GRIT SUITE
 
+source ./grit-utils.sh
+
 # This hook is called with the following parameters:
 #
 # $1 -- Name of the remote to which the push is being done
@@ -15,16 +17,6 @@
 #
 # This sample shows how to prevent push of commits where the log message starts
 # with "WIP" (work in progress).
-
-# Utilities
-say() {
-  GRIT="\033[0;34mGrit:\033[0m"
-  printf "$GRIT $1\n"
-}
-warn() {
-  GRIT="\033[0;31mGrit:\033[0m"
-  printf "$GRIT $1\n"
-}
 
 remote="$1"
 url="$2"
@@ -53,7 +45,7 @@ do
 done <<< "$submodules"
 
 if [ "$abort_push" == "true" ]; then
-	warn "Aborting the push until those issues have been resolved."
+	err "Aborting the push until those issues have been resolved."
 	exit 1 
 fi
 exit 0
