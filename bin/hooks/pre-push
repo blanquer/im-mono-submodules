@@ -28,6 +28,7 @@ do
 		detached="no"
 		`git symbolic-ref -q HEAD` # Exits with error code if detached
 		if [ "$?" != "0" ]; then
+		  echo ">>>>>>>>>>>>>>>[$?]"
 			detached="yes"
 		fi
 
