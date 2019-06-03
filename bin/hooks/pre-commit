@@ -1,9 +1,11 @@
 #!/bin/bash
 # FROM GRIT SUITE
 
-echo "FILE $0"
-echo "CWD: $(pwd)"
-source ./grit-utils.sh
+
+
+utility_script="$(dirname $0)/grit-utils.sh"
+echo "US: ${utility_script}"
+source $utility_script
 
 # bug:im-mono-submodules (Feature4 *) $ git submodule status
 #  e578a1ca60430270c49f7ca64fb051a6b6edfdb6 megaapi (heads/Feature3)
