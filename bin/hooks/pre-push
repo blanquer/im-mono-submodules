@@ -25,9 +25,15 @@ do
 		fi
 		
 		# Check if it is in a detached state, cause if it is, we do not know if there are pending commits to push
-		detached=$(git symbolic-ref -q HEAD || echo "__YES__")
-		if [ "$detached" != "__YES__" ]  && [ "$(git rev-parse @{u})" != "$(git rev-parse --quiet HEAD)" ]; then
-			# Note: we could automatically push them...
+		detached="no"
+		`git symbolic-ref -q HEAD` # Exits with error code if detached
+		if [ "$?" != "0" ]; then
+			detached="yes"
+		fi
+
+		if [ "$detached" == "yes" ]; then
+			warn "submodule ${modname} is in a detached state. Assuming it's all pushed upstream..."
+		elif [ "$detached" == "no" ]  && [ "$(git rev-parse @{u})" != "$(git rev-parse --quiet HEAD)" ]; then		
 			warn "submodule ${modname} has commits not pushed upstream. Push your changes first"
 			abort_push="true"
 		fi
