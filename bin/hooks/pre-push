@@ -17,7 +17,7 @@ while read -r info
 do
     IFS=' ' read -r sha modname heads <<< "$info"
 		branch=`echo $heads| tr -d \(\) | sed 's/heads\/\(.*\)/\1/'`
-		cd $modname
+		cd "$modname"
 		modified=`git status --porcelain --untracked-files=no`
 		if [ ! -z "$modified" ]; then
 			warn "submodule ${modname} has modifications. Please commit your changes first"
@@ -32,6 +32,7 @@ do
 		fi
 
 		if [ "$detached" == "yes" ]; then
+			# TODO: We might want to bomb in this case as well...let's see and learn first though...
 			warn "submodule ${modname} is in a detached state. Assuming it's all pushed upstream..."
 		elif [ "$detached" == "no" ]  && [ "$(git rev-parse @{u})" != "$(git rev-parse --quiet HEAD)" ]; then		
 			warn "submodule ${modname} has commits not pushed upstream. Push your changes first"

@@ -6,10 +6,6 @@ prev=$0
 new_head=$1
 flag=$2
 
-if [ "$flag" == 0 ]; then
-  exit 0
-fi
-
 git submodule update --init
 # validate manifest existance and contents
 while read -r submodule branch_name; do

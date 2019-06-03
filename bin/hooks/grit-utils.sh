@@ -9,7 +9,7 @@ info() {
   printf "$GRIT $1\n"
 }
 warn() {
-  local red='\033[0;32m'
+  local red='\033[0;33m'
   GRIT="${red}${GRIT_PREFIX}\033[0m"
   printf "$GRIT $1\n"
 }
