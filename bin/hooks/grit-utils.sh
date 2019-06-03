@@ -4,7 +4,7 @@
 
 GRIT_PREFIX="Grit:"
 info() {
-  local blue='\033[0;34m'
+  local blue='\033[0;32m'
   GRIT="${blue}${GRIT_PREFIX}\033[0m"
   printf "$GRIT $1\n"
 }
