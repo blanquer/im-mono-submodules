@@ -1,6 +1,8 @@
 #!/bin/bash
 # FROM GRIT SUITE
 
+echo "FILE $0"
+echo "CWD: $(pwd)"
 source ./grit-utils.sh
 
 # bug:im-mono-submodules (Feature4 *) $ git submodule status
