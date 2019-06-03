@@ -26,8 +26,8 @@ do
 		
 		# Check if it is in a detached state, cause if it is, we do not know if there are pending commits to push
 		detached="no"
-		`git symbolic-ref -q HEAD` # Exits with error code if detached
-		if [ $? -ne 0 ]; then
+		if `git symbolic-ref -q HEAD`; then
+			# Exits with error code if detached
 		  echo ">>>>>>>>>>>>>>>[$?]"
 			detached="yes"
 		fi
