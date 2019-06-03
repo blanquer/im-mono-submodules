@@ -3,20 +3,9 @@
 
 source "$(dirname $0)/grit-utils.sh"
 
-# This hook is called with the following parameters:
-#
-# $1 -- Name of the remote to which the push is being done
-# $2 -- URL to which the push is being done
-#
-# If pushing without using a named remote those arguments will be equal.
-#
-# Information about the commits which are being pushed is supplied as lines to
-# the standard input in the form:
-#
-#   <local ref> <local sha1> <remote ref> <remote sha1>
-#
-# This sample shows how to prevent push of commits where the log message starts
-# with "WIP" (work in progress).
+# This hook will check if any of the submodules have any changes that are not pushed upstream
+# If the submodule is in a detached state, we cannot know 
+# If any changes are not pushed it will abort the overall push
 
 remote="$1"
 url="$2"
@@ -31,15 +20,16 @@ do
 		cd $modname
 		modified=`git status --porcelain --untracked-files=no`
 		if [ ! -z "$modified" ]; then
-			abort_push="true"
 			warn "submodule ${modname} has modifications. Please commit your changes first"
+			abort_push="true"
 		fi
+		
 		# Check if it is in a detached state, cause if it is, we do not know if there are pending commits to push
 		detached=$(git symbolic-ref -q HEAD || echo "__YES__")
 		if [ "$detached" != "__YES__" ]  && [ "$(git rev-parse @{u})" != "$(git rev-parse --quiet HEAD)" ]; then
 			# Note: we could automatically push them...
-			abort_push="true"
 			warn "submodule ${modname} has commits not pushed upstream. Push your changes first"
+			abort_push="true"
 		fi
 		cd ..
 done <<< "$submodules"
