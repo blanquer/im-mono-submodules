@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./grit-utils.sh
+source "$(dirname $0)/grit-utils.sh"
 
 prev=$0
 new_head=$1

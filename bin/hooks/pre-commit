@@ -1,11 +1,7 @@
 #!/bin/bash
 # FROM GRIT SUITE
 
-
-
-utility_script="$(dirname $0)/grit-utils.sh"
-echo "US: ${utility_script}"
-source $utility_script
+source "$(dirname $0)/grit-utils.sh"
 
 # bug:im-mono-submodules (Feature4 *) $ git submodule status
 #  e578a1ca60430270c49f7ca64fb051a6b6edfdb6 megaapi (heads/Feature3)
