@@ -42,7 +42,7 @@ do
     if [ "$branch" != "$branch_in_manifest" ]; then
       manifest_changed="true"
       info "$modname should be at $branch but the manifest is at $branch_in_manifest"
-    elsif 
+    else 
       echo "Things look good: branch is $branch, the manifest is at $branch_in_manifest"
     fi
     newmanifest+=("${modname} ${branch}")

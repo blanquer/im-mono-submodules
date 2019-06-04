@@ -3,6 +3,7 @@
 * NOTE: if you don't use the `--recursive` you'll need to run this the first time
   * Then do a one time submodule update `git submodule update --init`
 * Tell your clone to look at included dir for hooks: `git config core.hooksPath bin/hooks`
+* You can manually roon the `bin/hooks/post-checkout` to set the branch names...
 * profit
 
 #references
