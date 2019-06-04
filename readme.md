@@ -1,5 +1,7 @@
 # Steps to install this thing
-* checkout the repo: `git clone git@github.com:blanquer/im-mono-submodules.git`
+* checkout the repo: `git clone --recursive --jobs 8 git@github.com:blanquer/im-mono-submodules.git`
+* NOTE: if you don't use the `--recursive` you'll need to run this the first time
+  * Then do a one time submodule update `git submodule update --init`
 * Tell your clone to look at included dir for hooks: `git config core.hooksPath bin/hooks`
 * profit
 
