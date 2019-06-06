@@ -23,12 +23,12 @@ while read -r submodule branch_name; do
   elif [ "$head" == "$branch" ]; then
     # If the branch exists, and points to the same sha , just check it out
     git checkout -q "$branch_name"
-  elif [ $(git branch --contains ${head} --format "%(refname:short)" | grep -E "^${branch_name}$") ]; then
-    # NOTE: This may not be as helpful as it looks as it would backtrack the pointer...might wanna leave it out
-    # If the branch exists, it's not at the same tip, but the sha exists in it... 
-    # Then we just check it out (technically you could "loose" where the branch was pointing to...so not 100% save)  
-    git branch -f "${branch_name}" "${head}"
-    git checkout -q "$branch_name"
+  # elif [ $(git branch --contains ${head} --format "%(refname:short)" | grep -E "^${branch_name}$") ]; then
+  #   # NOTE: This may not be as helpful as it looks as it would backtrack the pointer...might wanna leave it out
+  #   # If the branch exists, it's not at the same tip, but the sha exists in it... 
+  #   # Then we just check it out (technically you could "loose" where the branch was pointing to...so not 100% save)  
+  #   git branch -f "${branch_name}" "${head}"
+  #   git checkout -q "$branch_name"
   else
     warn "Refusing to move your current HEAD to branch ${branch_name} in submodule ${submodule}. Please resolve it manually."
     warn "   This probably happened because you might have been working on a branch in this repo that has "

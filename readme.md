@@ -7,7 +7,7 @@
 * profit
 
 #references
-
+https://www.vogella.com/tutorials/GitSubmodules/article.html#submodules_trackbranch
 https://medium.com/@porteneuve/mastering-git-submodules-34c65e940407
 https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec
 
